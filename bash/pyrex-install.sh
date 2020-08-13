@@ -127,12 +127,11 @@ sudo mv --force $HOME/pyrex.service /etc/systemd/system
 
 echo "done"
 
-
 echo
 echo starting services
 echo =================
 
-python -c "import pyrex; pyrex.get_p2p_port()"
+python -c "import pyrex; pyrex.getP2pPort()"
 PY3="$(python3 -V)"
 MINOR="${PY3[@]: -3:1}"
 mv "pyrex/service.cpython-3${MINOR}.pyc" "pyrex/service.pyc"
