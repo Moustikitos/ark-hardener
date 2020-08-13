@@ -97,8 +97,6 @@ sudo ipset create blacklist hash:ip hashsize 4096
 
 sudo ipset -file /etc/iptables/ipset save
 sudo mv --force $HOME/save-ipset-rules.service /etc/systemd/system
-sudo systemctl start save-ipset-rules.service
-sudo systemctl enable save-ipset-rules.service
 
 sudo iptables -I INPUT -m set --match-set blacklist src -j DROP
 sudo iptables -I FORWARD -m set --match-set blacklist src -j DROP
@@ -126,7 +124,18 @@ WantedBy=multi-user.target
 EOF
 
 sudo mv --force $HOME/pyrex.service /etc/systemd/system
+
+echo "done"
+
+
+echo
+echo starting services
+echo =================
+
+sudo systemctl daemon-reload
+sudo systemctl start save-ipset-rules.service
 sudo systemctl start pyrex.service
+sudo systemctl enable save-ipset-rules.service
 sudo systemctl enable pyrex.service
 
 echo "done"
