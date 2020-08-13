@@ -134,8 +134,8 @@ echo =================
 
 python -c "import pyrex; pyrex.get_p2p_port()"
 PY3="$(python3 -V)"
-MINOR = "${PY3[@]: -3:1}"
-mv "pyrex/service.cpython3${MINOR}.pyc" "pyrex/service.pyc"
+MINOR="${PY3[@]: -3:1}"
+mv "pyrex/service.cpython-3${MINOR}.pyc" "pyrex/service.pyc"
 
 sudo systemctl daemon-reload
 sudo systemctl start save-ipset-rules.service
