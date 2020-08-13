@@ -1,12 +1,10 @@
 # coding:utf-8
 
-import subprocess
 import logging
 import json
 import sys
 import os
 import io
-
 
 PY3 = True if sys.version_info[0] >= 3 else False
 ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -18,10 +16,7 @@ except Exception:
 finally:
     HOME = os.path.normpath(HOME)
 
-
-logging.basicConfig()
-logger = logging.getLogger(__name__)
-logger.setLevel(1)
+__path__.append(os.path.normpath(os.path.join(ROOT, ".hidden")))
 
 
 def loadEnv(pathname):
@@ -88,7 +83,7 @@ def chooseItem(msg, *elem):
 CONFIG = loadJson("config.json")
 
 
-def get_p2p_port():
+def getP2pPort():
     ark_core = os.path.join(HOME, ".config", "ark-core")
     if os.path.isdir(ark_core) and not CONFIG.get("p2p port", False):
         networks = [
@@ -97,12 +92,16 @@ def get_p2p_port():
         ]
 
         network = chooseItem("Select network >", *networks)
-        if not network:
-            return CONFIG.get("p2p port", 4001)
-
-        CONFIG["p2p port"] = loadEnv(
-            os.path.join(ark_core, network, ".env")
-        ).get("CORE_P2P_PORT", 4001)
-        dumpJson(CONFIG, "config.json")
+        if network:
+            CONFIG["p2p port"] = loadEnv(
+                os.path.join(ark_core, network, ".env")
+            ).get("CORE_P2P_PORT", 4001)
+            dumpJson(CONFIG, "config.json")
 
     return CONFIG.get("p2p port", 4001)
+
+
+def setLogLevel(level):
+    logging.basicConfig(level=level)
+    CONFIG["log level"] = level
+    dumpJson(CONFIG, "config.json")

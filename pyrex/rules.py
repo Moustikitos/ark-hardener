@@ -15,7 +15,7 @@ def _func(name, code):
     return types.FunctionType(code, globals())
 
 
-def add(name, obj):
+def register(name, obj):
     code = binascii.hexlify(
         marshal.dumps(
             getattr(obj, "__code__" if PY3 else "func_code")
