@@ -44,8 +44,8 @@ You may want to grant specific ip address. It is usefull if a relay have to reac
 ```
 
 ### Enable [ipinfo](https://ipinfo.io) API
-
-Register your token from your ipinfo dashbord.
+update
+Register your token from your `ipinfo` dashbord.
 
 ```python
 >>> nets.register_ipinfo_token("azndbUTJzdsqdi"))
@@ -53,7 +53,7 @@ Register your token from your ipinfo dashbord.
 
 ### Add/delete a rule
 
-A rule is a piece of python code executed on either ip address as string or ipinfo dictionary if ipinfo enabled. The piece of code have to return `True` to avoid ban.
+A rule is a piece of python code executed on either ip address as string or ip info if `ipinfo` enabled. The piece of code have to return `True` to avoid ban.
 
 ```python
 >>> # add rule : every ipinfo containing "tor" are granted
@@ -64,7 +64,9 @@ A rule is a piece of python code executed on either ip address as string or ipin
 
 ## Use
 
-Even if `pyrex` is providen as a python package, it runs in background as a system service. Because `sudo` user is needed by `pyrex` to add ip in `ipset` blacklist, `sudo` command have to run witout password prompt. To do so, run:
+Even if `pyrex` is providen as a python package, it runs in background as a system service. Because `sudo` user is needed by `pyrex` to add ip in `ipset` blacklist, `sudo` command have to run witout password prompt.
+
+To do so:
 
 ```bash
 $ sudo visudo
