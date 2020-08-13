@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/Moustikitos/ark-hardener/master/LICENSE)
 
-This package aim to harden [ark](ark.io) nodes against ddos attacks
+This package aims to harden [ark](ark.io) nodes against ddos attacks
 
 ## Support this project
 
