@@ -1,4 +1,3 @@
 asyncio
 websockets
-nest_asyncio
 git+http://github.com/Moustikitos/micro-io#egg=uio

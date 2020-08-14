@@ -74,7 +74,7 @@ def register_ipinfo_token(token):
     dumpJson(CONFIG, "config.json")
 
 
-def add_trusted_ip(ip):
+def register_trusted_ip(ip):
     global TRUSTED
     CONFIG["trusted"] = list(set(CONFIG.get("trusted", []) + [ip]))
     TRUSTED.add(ip)

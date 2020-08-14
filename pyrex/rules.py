@@ -4,7 +4,7 @@ import binascii
 import marshal
 import types
 
-from pyrex import dumpJson, CONFIG, PY3
+from pyrex import loadJson, dumpJson, CONFIG, PY3
 
 
 def _func(name, code):
@@ -37,4 +37,5 @@ def drop(name):
 
 
 def load():
+    CONFIG.update(loadJson("config.json"))
     return dict([(n, _func(n, m)) for n, m in CONFIG.get("rules", {}).items()])
