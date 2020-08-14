@@ -63,7 +63,7 @@ A rule is a piece of python code executed on either ip address as string or ip i
 ...        ("tor" in ip_or_info.get("hostname", ""))
 ...        if isinstance(ip_or_info, dict) else False
 ... )
->>> # delete localhost ip from trusted list
+>>> # delete TOR rule
 >>> rules.drop("TOR")
 ```
 
