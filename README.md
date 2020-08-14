@@ -30,7 +30,7 @@ Then all is available from `rules` and `nets` modules:
 >>> from pyrex import rules, nets
 ```
 
-Configuration is stored in `~ark-hardener/pyrex/.json/config.json`.
+Configuration is stored in `~/ark-hardener/pyrex/.json/config.json`.
 
 ### Add/delete trusted ip
 
@@ -43,8 +43,8 @@ You may want to grant specific ip address. It is usefull if a relay have to reac
 >>> nets.drop_trusted_ip("242.124.32.12")
 ```
 
-### Enable [ipinfo](https://ipinfo.io) API
-update
+### Enable [ipinfo](https://ipinfo.io) API (not mandatory)
+
 Register your token from your `ipinfo` dashbord.
 
 ```python
@@ -57,7 +57,12 @@ A rule is a piece of python code executed on either ip address as string or ip i
 
 ```python
 >>> # add rule : every ipinfo containing "tor" are granted
->>> rules.register("TOR", lambda ip_or_info: "tor" in ip_or_info.get("hostname", ""))
+>>> rules.register(
+...    "TOR", # name you want to give to the rule
+...    lambda ip_or_info:
+...        ("tor" in ip_or_info.get("hostname", ""))
+...        if isinstance(ip_or_info, dict) else False
+... )
 >>> # delete localhost ip from trusted list
 >>> rules.drop("TOR")
 ```
@@ -78,7 +83,7 @@ then add this line at the end of the file:
 <username> ALL=(ALL) NOPASSWD:ALL
 ```
 
-where `<username>` is the user running `pyrex` service. THen close (`CTRL+X`) and save (`Y`).
+where `<username>` is the user running `pyrex` service, then close (`CTRL+X`) and save (`Y`).
 
 ### Start/restart/stop `pyrex` service
 
@@ -94,8 +99,19 @@ $ sudo systemctl stop pyrex
 $ sudo journalctl -u pyrex -ef
 ```
 
+### Extract `pyrex` logs
+
+```bash
+$ sudo journalctl -u pyrex --since "1 day ago" > ~/pyrex.log
+```
+
 ### Launch `pyrex` on reboot
 
 ```bash
 $ sudo systemctl enable pyrex
 ```
+
+### More ?
+
+Check [`systemd` man pages](https://man7.org/linux/man-pages/man1/systemd.1.html)
+and [`journalctl` man pages](https://man7.org/linux/man-pages/man1/journalctl.1.html).
