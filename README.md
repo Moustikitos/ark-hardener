@@ -38,7 +38,7 @@ You may want to grant specific ip address. It is usefull if a relay have to reac
 
 ```python
 >>> # add ip in trusted list
->>> nets.add_trusted_ip("242.124.32.12")
+>>> nets.register_trusted_ip("242.124.32.12")
 >>> # delete localhost ip from trusted list
 >>> nets.drop_trusted_ip("242.124.32.12")
 ```
