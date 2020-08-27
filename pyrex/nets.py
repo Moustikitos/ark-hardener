@@ -1,6 +1,7 @@
 # coding:utf-8
 
 import subprocess
+import logging
 import random
 import sys
 
@@ -10,6 +11,8 @@ from uio import req
 
 
 TRUSTED = set(["127.0.0.1"])
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(CONFIG.get("log level", 1))
 
 
 def get_trusted():
@@ -48,9 +51,10 @@ def get_foreign_ip(*ports):
 
 
 def get_peers(seeds=CONFIG.get("seeds", ["https://explorer.ark.io:8443"])):
-    seed = random.choice(seeds)
+    seed = random.choice(["http://%s:4003" % ip for ip in TRUSTED] + seeds)
+    LOGGER.debug("getting peers from %s...", seed)
     if not req.connect(seed):
-        raise Exception("connection with %s failed!" % seeds)
+        raise Exception("connection with %s failed!" % seed)
     else:
         r = req.GET.api.peers()
         peers = r.get("data", [])
