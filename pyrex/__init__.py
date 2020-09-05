@@ -101,7 +101,8 @@ def getP2pPort():
     return CONFIG.get("p2p port", 4001)
 
 
-def setLogLevel(level):
-    logging.basicConfig(level=level)
+def setLogLevel(level, logger=None):
     CONFIG["log level"] = level
     dumpJson(CONFIG, "config.json")
+    if logger is not None:
+        logger.setLevel(level)

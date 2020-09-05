@@ -34,20 +34,16 @@ def get_foreign_ip(*ports):
     col = 2 if "win" in sys.platform else 4
     output = subprocess.check_output("netstat -nt".split())
     output = output.decode("latin-1") if isinstance(output, bytes) else output
-    foreign_ip = [
+
+    for ip in [
         d[col] for d in [
             li.split() for li in output.split("\n")
         ] if len(d) > col
-    ]
-
-    for ip in foreign_ip:
-        ok = False
+    ]:
         for port in ports:
             if ip.endswith(":%s" % port):
-                ok = True
+                yield(ip.split(":")[0])
                 break
-        if ok:
-            yield(ip.split(":")[0])
 
 
 def get_peers(seeds=CONFIG.get("seeds", ["https://explorer.ark.io:8443"])):
