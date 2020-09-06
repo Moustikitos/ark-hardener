@@ -92,7 +92,6 @@ echo
 echo installing python dependencies
 echo ==============================
 . $VENVDIR/bin/activate
-export PYTHONPATH=${HOME}/.local/share
 wget -q ${RAWGIT}/requirements.txt -P ${HOME}
 pip install -r ${HOME}/requirements.txt -q
 rm ${HOME}/requirements.txt
@@ -100,9 +99,16 @@ echo "done"
 
 PY3="$(python3 -V)"
 MINOR="${PY3[@]: -3:1}"
-wget -q ${RAWGIT}/bin/pyrex.cpython-3${MINOR}.so -P ${HOME}/.local/share
-mv ${HOME}/.local/share/pyrex.cpython-3${MINOR}.so ${HOME}/.local/share/pyrex.so
+if [ "$(uname -m)" == 'x86_64' ]; then
+  MACHINE="x64"
+else
+  MACHINE="x32"
+fi
+wget -q ${RAWGIT}/bin/pyrex.${MACHINE}.cpython-3${MINOR}.so -P ${HOME}/.local/share
+mv ${HOME}/.local/share/pyrex.${MACHINE}.cpython-3${MINOR}.so ${HOME}/.local/share/pyrex.so
 chmod 777 ${HOME}/.local/share/pyrex
+
+export PYTHONPATH=${HOME}/.local/share
 python -c "import pyrex; pyrex.getP2pPort()"
 
 echo

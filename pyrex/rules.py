@@ -39,3 +39,10 @@ def drop(name):
 def load():
     CONFIG.update(loadJson("config.json"))
     return dict([(n, _func(n, m)) for n, m in CONFIG.get("rules", {}).items()])
+
+
+# def get_ip(name, action):
+#     s = sqlite3.connect(name)
+#     s.row_factory = sqlite3.Row
+#     req = s.execute("SELECT * FROM iptable WHERE action=?;", (action, ))
+#     return set([r["ip"] for r in req.fetchall()])
