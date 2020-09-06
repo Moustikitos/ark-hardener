@@ -98,7 +98,7 @@ rm ${HOME}/requirements.txt
 echo "done"
 
 PY3="$(python3 -V)"
-MINOR="${PY3[@]: -3:1}"
+MINOR="${PY3[@]: 9:1}"
 if [ "$(uname -m)" == 'x86_64' ]; then
   MACHINE="x64"
 else
