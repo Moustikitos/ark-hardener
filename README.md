@@ -14,7 +14,7 @@ and [`ipset`](https://manpages.ubuntu.com/manpages/bionic/man8/ipset.8.html).
 ## Install
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/Moustikitos/ark-hardener/master/bash/pyrex-install.sh)
+bash <(curl -s https://raw.githubusercontent.com/Moustikitos/ark-hardener/master/bash/pyrex-bin-install.sh)
 ```
 
 ## Configure
