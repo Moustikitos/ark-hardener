@@ -99,7 +99,7 @@ echo "done"
 
 PY3="$(python3 -V)"
 MINOR="${PY3[@]: 9:1}"
-if [ "$(uname -m)" == 'x86_64' ]; then
+if [ "python -c 'import sys;sys.stdout.write(str(sys.maxsize == 2**64//2-1))'" == 'True' ]; then
   MACHINE="x64"
 else
   MACHINE="x32"
