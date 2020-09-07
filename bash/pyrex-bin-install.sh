@@ -2,6 +2,7 @@
 
 VENVDIR="$HOME/.local/share/pyrex/venv"
 RAWGIT="https://raw.githubusercontent.com/Moustikitos/ark-hardener/master"
+IS_PY64="$(python -c 'import sys;print(sys.maxsize==2**64//2-1)')"
 
 clear
 
@@ -99,7 +100,7 @@ echo "done"
 
 PY3="$(python3 -V)"
 MINOR="${PY3[@]: 9:1}"
-if [ "python -c 'import sys;sys.stdout.write(str(sys.maxsize == 2**64//2-1))'" == 'True' ]; then
+if [ $IS_PY64 = 'True' ]; then
   MACHINE="x64"
 else
   MACHINE="x32"
