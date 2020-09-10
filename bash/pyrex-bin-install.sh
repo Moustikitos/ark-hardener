@@ -3,6 +3,7 @@
 VENVDIR=${HOME}/.local/share/pyrex/venv
 RAWGIT="https://raw.githubusercontent.com/Moustikitos/ark-hardener/master"
 TARGET="$(which python3)"
+PIP="$(which pip3)"
 
 clear
 echo installing system dependencies
@@ -10,7 +11,13 @@ echo ==============================
 sudo apt-get -q install ipset iptables-persistent net-tools
 # install python3 if not found
 if [ ! -f  $TARGET ]; then
-	sudo apt-get -q install python3 python3-dev python3-setuptools python3-pip
+	sudo apt-get -q install python3 python3-dev
+fi
+# install pip3 if not found
+if [ ! -f  $PIP ]; then
+  $TARGET -m pip install pip
+else
+  $TARGET -m pip install --upgrade pip
 fi
 
 echo "done"
@@ -18,8 +25,8 @@ echo "done"
 echo
 echo creating virtual environment
 echo ============================
-$TARGET -m pip install --user --upgrade pip
-$TARGET -m pip install --user virtualenv
+TARGET="$(which python3)"
+$TARGET -m pip install virtualenv
 
 if [ -d $VENVDIR ]; then
     read -p "remove previous virtual environement ? [y/N]> " R
@@ -99,6 +106,7 @@ echo ==============================
 
 # install dependencies
 wget -q ${RAWGIT}/requirements.txt -P ${HOME}
+python -m pip install setuptools wheel
 python -m pip install -r ${HOME}/requirements.txt
 rm ${HOME}/requirements.txt
 
